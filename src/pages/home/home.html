@@ -9,12 +9,15 @@
 <ion-content padding class="bg">
   <ion-grid>
     <ion-row>
-      <ion-col>
-        <div>
-          <ion-icon [name]="status.name" [color]="status.color">
-          </ion-icon>
-          <span class="small">{{status.message}}</span>
-        </div>
+      <ion-col col-6>
+        <ion-item class="bg input">
+          <ion-input class="i" placeholder="ip address" type="text" [(ngModel)]="ipaddress"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-6>
+        <button (tap)="save()" round ion-button>
+          Save 
+        </button>
       </ion-col>
     </ion-row>
     <ion-row margin-top>
@@ -25,11 +28,13 @@
       </ion-col>
     </ion-row>
 
+
     <!-- Slider -->
     <ion-row>
       <ion-col>
         <ion-item color="dark">
-          <ion-range>
+          <ion-label>{{motion}}%</ion-label>
+          <ion-range [(ngModel)]="motion" (ionChange)="send()">
             <ion-icon color="light" range-left small name="remove"></ion-icon>
             <ion-icon color="light" range-right name="add"></ion-icon>
           </ion-range>
@@ -40,18 +45,18 @@
     <!-- Group Buttons -->
     <ion-row margin-top>
       <ion-col col-6 class="groupLeft">
-        <button class="btn25" float-right round ion-button>
-          25%
-        </button>
-        <button class="btn50" float-right round ion-button>
+        <button class="btn50" (tap)="change(50)" float-right round ion-button>
           50%
+        </button>
+        <button class="btn25" (tap)="change(25)" float-right round ion-button>
+          25%
         </button>
       </ion-col>
       <ion-col col-6 class="groupRight">
-        <button class="btn75" round ion-button>
+        <button class="btn75" (tap)="change(75)" round ion-button>
           75%
         </button>
-        <button class="btn100" round ion-button>
+        <button class="btn100" (tap)="change(100)" round ion-button>
           100%
         </button>
       </ion-col>
@@ -59,11 +64,11 @@
 
     <!-- Full Buttons -->
     <ion-row margin-top>
-      <ion-col col-12 >
-        <button ion-button full class="btnRelax"> Relax Arm</button>
+      <ion-col col-12>
+        <button ion-button (tap)="change(0)" full class="btnRelax"> Relax Arm</button>
       </ion-col>
       <ion-col col-12>
-        <button ion-button full class="btnContract">Contract Arm</button>
+        <button ion-button full (tap)="change(100)" class="btnContract">Contract Arm</button>
       </ion-col>
     </ion-row>
   </ion-grid>
